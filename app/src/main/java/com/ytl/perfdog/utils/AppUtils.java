@@ -20,8 +20,8 @@ public class AppUtils {
     /*
      * 获取系统所有安装的包名
      */
-    public List<String> getAllInstalledAppInfo(){
-        List<String> appPackageName = new ArrayList<>();
+    public List<AppInfoBean> getAllInstalledAppInfo(){
+        List<AppInfoBean> appInfoBeans = new ArrayList<>();
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
@@ -29,10 +29,15 @@ public class AppUtils {
         List<ResolveInfo> resolveInfoList = mContext.getPackageManager().queryIntentActivities(intent, 0);
         for (ResolveInfo resolveInfo: resolveInfoList){
             ActivityInfo activityInfo = resolveInfo.activityInfo;
-            AppInfoBean appInfoBean = new AppInfoBean();
+            String appPkgName = activityInfo.applicationInfo.packageName;
+            Drawable appIcon = this.getAppIconByPkgName(appPkgName);
+            String appName = this.getAppName(appPkgName);
+            String appVersionName = this.getAppVersionName(appPkgName);
+            boolean isSystemApp = this.isSystemPackage(resolveInfo);
+            AppInfoBean appInfoBean = new AppInfoBean(appPkgName, appName, appIcon, appVersionName, isSystemApp);
 
         }
-        return appPackageName;
+        return appInfoBeans;
     }
 
     public boolean isSystemPackage(ResolveInfo resolveInfo){
