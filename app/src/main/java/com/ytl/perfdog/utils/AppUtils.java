@@ -30,12 +30,12 @@ public class AppUtils {
         for (ResolveInfo resolveInfo: resolveInfoList){
             ActivityInfo activityInfo = resolveInfo.activityInfo;
             String appPkgName = activityInfo.applicationInfo.packageName;
-            Drawable appIcon = this.getAppIconByPkgName(appPkgName);
-            String appName = this.getAppName(appPkgName);
-            String appVersionName = this.getAppVersionName(appPkgName);
-            boolean isSystemApp = this.isSystemPackage(resolveInfo);
+            Drawable appIcon = getAppIconByPkgName(appPkgName);
+            String appName = getAppName(appPkgName);
+            String appVersionName = getAppVersionName(appPkgName);
+            boolean isSystemApp = isSystemPackage(resolveInfo);
             AppInfoBean appInfoBean = new AppInfoBean(appPkgName, appName, appIcon, appVersionName, isSystemApp);
-
+            appInfoBeans.add(appInfoBean);
         }
         return appInfoBeans;
     }
