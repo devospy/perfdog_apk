@@ -15,10 +15,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "create...");
         AppUtils appUtils = new AppUtils(this);
         List<AppInfoBean> appInfoBeanList = appUtils.getAllInstalledAppInfo();
         for (AppInfoBean appInfoBean : appInfoBeanList){
-            Log.d(TAG, appInfoBean.toString());
+            Log.d(TAG, appInfoBean.getAppName());
         }
     }
 }
